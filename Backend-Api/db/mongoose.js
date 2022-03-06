@@ -42,6 +42,6 @@ const addMainRoles = async()=>{
 
 
 }
-//addMainRoles()
-//addAdmin()
+addMainRoles()
+addAdmin()
 
