@@ -5,8 +5,8 @@ const roleSchema = new mongoose.Schema({
     name:{
         type:String,
         trim:true,
-        default:'No role',
         required:true,
+        unique:true,
         validate(value){
             if(value.toLowerCase().includes('admin')){
                 throw new Error('Cannot assign admin role !!!')

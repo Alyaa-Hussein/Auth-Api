@@ -5,6 +5,7 @@ import AuthContext from '../store/auth-context';
 
 import classes from './AuthForm.module.css';
 
+
 const AuthForm = () => {
 
 
@@ -17,10 +18,28 @@ const AuthForm = () => {
   const {isLoading,error,sendRequest}= useHttp()
 
   const [isLogin, setIsLogin] = useState(true);
+  const [isError, setisError]= useState(false)
+  
+
+  const clearInput = ()=>{
+    if(!isLogin){
+      nameInputRef.current.value=''
+
+    }
+    passInputRef.current.value=''
+    emailInputRef.current.value=''
+
+  }
 
   const switchAuthModeHandler = () => {
+
+    clearInput()
+    setisError(false)
     setIsLogin((prevState) => !prevState);
+
   };
+
+  
 
   const submitHandler = async (event) =>{
     event.preventDefault()
@@ -30,6 +49,8 @@ const AuthForm = () => {
     
     let url
     if (isLogin) {
+     
+      
       url='/users/login'
       const data =await sendRequest({
         url:url,
@@ -42,15 +63,25 @@ const AuthForm = () => {
         'Content-Type':'application/json'
       },
     })
-
-    console.log(data.token)
-    console.log("hello admin",data.user.admin)
-
-    authCtx.login(data.token,data.user.admin)
+    if(!error && !data){
+      console.log('waiting')
+    }
+    else if(!error && data  ){
+      console.log('hello from the non error')
+      authCtx.login(data.token,data.user.admin)
     
    
-    history.replace('/home')
-    
+      history.replace({
+        pathname:'/home',
+        state:{detail:data.info}
+      })
+      
+    }
+    else  {
+      console.log(error)
+      console.log('hello from error ')
+      setisError(true)
+    }
 
     } else {
       const enteredName = nameInputRef.current.value
@@ -68,11 +99,15 @@ const AuthForm = () => {
       },
     })
  
-    nameInputRef.current.value=''
-    emailInputRef.current.value=''
-    passInputRef.current.value=''
-    setIsLogin(true)
+    if(error){
+      setisError(true)
+      setIsLogin(false)
+    }else{
+      clearInput()
+      setIsLogin(true)
     }
+    
+  }
   }
 
   return (
@@ -85,14 +120,14 @@ const AuthForm = () => {
         </div>
         <div className={classes.control}>
           <label htmlFor='password'>Your Password</label>
-          <input type='password' id='password' required ref={passInputRef} />
+          <input type='password' id='password' minLength='7' required ref={passInputRef} />
         </div>
         {!isLogin &&    <div className={classes.control}>
           <label htmlFor='name'>Your Name</label>
           <input type='text' id='name' required ref={nameInputRef} />
         </div>}
         <div className={classes.actions}>
-          {!isLoading && <button>{isLogin ? 'Login' : 'Create Account'}</button>}
+          {!isLoading && <button  >{isLogin ? 'Login' : 'Create Account'}</button>}
           {isLoading && <p>Loading...</p>}
          
           <button
@@ -102,6 +137,8 @@ const AuthForm = () => {
           >
             {isLogin ? 'Create new account' : 'Login with existing account'}
           </button>
+          {isError && !isLoading && isLogin && <p>{error}</p>}
+          {isError && !isLoading && !isLogin && <p>Please try another email !!</p>}
 
         </div>
       </form>

@@ -1,0 +1,28 @@
+.detail h1 {
+    margin: 0 0 0.5rem 0;
+    color: #363636;
+    text-align: center;
+  }
+  .info{
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
+    background-color: white;
+  }
+
+  .info h2 {
+    margin: 0 0 0.5rem 0;
+    color: #38015c;
+    text-align: center;
+  }
+  .style{
+    font: inherit;
+    background-color: #38015c;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+  }

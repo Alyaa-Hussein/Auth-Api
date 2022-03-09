@@ -9,25 +9,46 @@ const AuthContext=React.createContext({
 })
 
 export const AuthContextProvider = (props) =>{
-    const [userLoggedIn,setUserLoggedIn]=useState(false)
-    const [admin,setAdmin]=useState(false)
-    const [token, setToken]= useState('')
+    const intitialToken = localStorage.getItem('token')
+    const intitialRole = localStorage.getItem('admin')
 
-    //let userLoggedIn=false
+    const [admin,setAdmin]=useState(intitialRole)
+    const [token, setToken]= useState(intitialToken)
+
+    const userLoggedIn = !!token
+    const isAdmin = !!admin
+    
+
     const loginHandler = (token,admin) =>{
-        setUserLoggedIn(true)
+       // setUserLoggedIn(true)
+       if(admin)
+       {
+        localStorage.setItem('admin','admin')
+        setAdmin('admin')
+
+       }
+       else{
+           setAdmin(null)
+       }
+      //  console.log('from context',admin)
+
+        localStorage.setItem('token',token)
         setToken(token)
-        setAdmin(admin)
-        console.log("from Context",admin)
+       // setAdmin(admin)
+        //console.log("from Context",admin)
     }
     const logoutHandler = () =>{
-        setUserLoggedIn(false)
+      //  setUserLoggedIn(false)
+        localStorage.removeItem('token')
+        localStorage.removeItem('admin')
+        setAdmin(false)
+        setToken(null)
 
-        }
+    }
 
     const contextValue={
         token:token,
-        admin:admin,
+        admin:isAdmin,
         isLoggedIn: userLoggedIn,
         login: loginHandler,
         logout: logoutHandler

@@ -1,0 +1,44 @@
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #38015c;
+    padding: 1rem 0;
+    margin: 1rem 0;
+  }
+  
+  .user-item h2 {
+    margin: 0 0 0.5rem 0;
+    color: #363636;
+  }
+
+  .user-item button {
+    font: inherit;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #38015c;
+    border: 1px solid #38015c;
+    width: 6rem;
+    text-align: center;
+    border-radius: 6px;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin: 0.25rem;
+  }
+  
+  .user-item button:hover,
+  .user-item button:active {
+    background-color: #38015c;
+    color: white;
+  }
+
+  .user-item select{
+    font: inherit;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #38015c;
+    border: 1px solid #38015c;
+    width: 10rem;
+    text-align: center;
+  }

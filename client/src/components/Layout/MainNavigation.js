@@ -6,23 +6,22 @@ import useHttp from '../../Http-request/use-http';
 
 const MainNavigation = () => {
   const history = useHistory()
-  const {isLoading,error,sendRequest}= useHttp()
+  const {sendRequest}= useHttp()
 
   const authCtx = useContext(AuthContext)
   const isLoggedIn = authCtx.isLoggedIn
   const admin = authCtx.admin
-  console.log("kokkokooko",admin)
+  //console.log("Main navigation",admin)
 
   function logoutHandler(){
     authCtx.logout()
-    //fetch from backend api 
-    console.log('before sending request',authCtx.token)
-  const data =  sendRequest({
+   
+   const data =  sendRequest({
       url:'/users/logout',
       method:'POST',
-      body:JSON.stringify({token:authCtx.token}),
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Authorization':authCtx.token
       }
     })
     history.replace('/auth')
@@ -34,21 +33,17 @@ const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
-          {!isLoggedIn &&
-            <li>
-              <Link to='/auth'>Login</Link>
-            </li>}
           {isLoggedIn &&
             <li>
               <Link to='/Home'>Home</Link>
             </li>}
           {isLoggedIn && admin &&
             <li>
-              <Link to='/Home'>Roles</Link>
+              <Link to='/roles'>Roles</Link>
             </li>}
           {isLoggedIn &&  admin &&
             <li>
-              <Link to='/Home'>Users </Link>
+              <Link to='/users'>Users </Link>
             </li>}
           {isLoggedIn &&
             <li>

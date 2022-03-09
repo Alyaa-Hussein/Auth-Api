@@ -1,0 +1,16 @@
+.item {
+    max-width: 60rem;
+    width: 90%;
+    margin: 2rem auto;
+}
+.item h1{
+
+    margin: 0 0 0.5rem 0;
+    color: #363636;
+    text-align: center;
+}
+.item p {
+    margin: 0 0 0.5rem 0;
+    color: #363636;
+    text-align: center;
+}

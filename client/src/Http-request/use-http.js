@@ -1,10 +1,10 @@
-import {useState,useCallback} from "react"
+import {useState,useCallback, useContext} from "react"
 
 const useHttp=()=>{
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendRequest = async (requestConfig) => {
+  const sendRequest = useCallback( async (requestConfig) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -15,17 +15,18 @@ const useHttp=()=>{
       });
 
       if (!response.ok) {
-        throw new Error('Request failed!');
+        setIsLoading(false)
+       throw new Error('Unable to login');
       }
-
+      setIsLoading(false);
       const data = await response.json()
       return data
 
     } catch (err) {
       setError(err.message || 'Something went wrong!');
     }
-    setIsLoading(false);
-  };
+    
+  },[]);
   return {
       isLoading,
       error,
