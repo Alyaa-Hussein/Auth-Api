@@ -8,7 +8,7 @@ const UsersPage = () => {
   const [users,setUsers]= useState([])
   const [roles,setRoles]= useState([])
 
-  const { sendRequest } = useHttp();
+  const { sendRequest,error } = useHttp();
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
@@ -50,7 +50,13 @@ const UsersPage = () => {
     
   }, [sendRequest, authCtx.token]);
 
-  return <UserList users={users} roles={roles} />;
+  return(
+    <div>
+      {!error &&<UserList users={users} roles={roles} />}
+      {error && <h1>You are not authorized to access this page</h1>}
+
+    </div>
+     );
 };
 
 export default UsersPage;

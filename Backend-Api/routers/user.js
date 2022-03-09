@@ -3,6 +3,7 @@ const User=require('../models/user')
 const Role = require('../models/role')
 
 const auth = require('../middleware/auth')
+const Authority = require('../middleware/Authority')
 
 const router=new express.Router()
 
@@ -48,7 +49,7 @@ router.post('/users/logout',auth, async (req,res)=>{
 
 //Get list of users
 
-router.get('/users/all',auth ,async (req,res)=>{
+router.get('/users/all',auth ,Authority(1),async (req,res)=>{
     try{
         const users = await User.find({admin:false}).populate('userRole')
         res.send({users})
@@ -59,7 +60,7 @@ router.get('/users/all',auth ,async (req,res)=>{
 
 //Change user role
 
-router.patch('/users/update', auth , async(req,res) =>{
+router.patch('/users/update', auth ,Authority(1),async(req,res) =>{
     try{
         const newRole= await Role.findOne({name:req.body.role})
         const user= await User.findByIdAndUpdate(req.body.id,{userRole:newRole._id},{new:true})
@@ -75,15 +76,22 @@ router.get('/users/me',auth, async(req,res)=>{
     const info = await user.populate('userRole')
     res.send(info)
 })
-
-
-/*router.delete('/users/me', auth , async(req,res)=>{
+router.get('/devplan', auth , Authority(3),async(req,res)=>{
     try{
-        await req.user.remove()
-        res.send(req.user)
+        const data =' Our  plan is based on the developer team and the project that we are developing. Our goal is to work together with our best effort to meet the user requirement'
+
+        res.send({plan:data})
     }catch(e){
-        res.status(500).send()
+        console.log(e)
+        res.status(500).send(e)
     }
-})*/
+
+})
+
+router.get('/testplan', auth , Authority(2),async(req,res)=>{
+    const data ='Our  plan is to test the code modules to deliver the best outcome'
+    res.status(200).send({plan:data})
+})
+
 
 module.exports = router

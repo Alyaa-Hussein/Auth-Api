@@ -8,14 +8,15 @@ const auth = async (req, res, next)=>{
         
         token= req.header('Authorization')
         
+        
         const decode =  jwt.verify(token,'thisisasecret')
-        const user = await User.findOne({_id:decode._id, 'tokens.token':token})
-
+        const user = await User.findOne({_id:decode._id, 'tokens.token':token}).populate('userRole')
         if (!user){
             throw new Error()
         }
         req.token=token
         req.user=user
+        
 
         next()
         

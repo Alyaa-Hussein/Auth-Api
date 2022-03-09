@@ -1,16 +1,43 @@
+import { useContext, useEffect, useState } from 'react'
+import useHttp from '../Http-request/use-http'
+import AuthContext from '../store/auth-context'
 import classes from './Styles.module.css'
 
 const DevelopmentPage= ()=>{
+    const {sendRequest, error}= useHttp()
+    const authCtx = useContext(AuthContext)
+    const [data, setData] = useState()
+    useEffect(()=>{
+        const fetchData = async()=>{
+            const data = await sendRequest({
+                url:'/devplan',
+                method:'GET',
+                headers:{
+                    'Content-Type':'application/json',
+                    'Authorization':authCtx.token
+                }
+            })
+            
+            setData(data.plan)
+        }
+        fetchData()
+
+
+    },[sendRequest, authCtx.token])
+
     return(
-        <div className={classes.item}>
+        <div>
+            { !error && <div className={classes.item}>
             <h1>This is the development plan</h1>
             <br/>
             <p>
-                Our  plan is based on the developer team and the project that we are developing. 
-                Our goal is to work together with our best effort to meet the user requirement
+                {data}
             </p>
 
+        </div>}
+        {error && <h1>You are not authorized to access this page</h1>}
         </div>
+    
     )
 }
 

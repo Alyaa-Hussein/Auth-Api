@@ -39,7 +39,7 @@ const MainNavigation = () => {
             </li>}
           {isLoggedIn && admin &&
             <li>
-              <Link to='/roles'>Roles</Link>
+              <Link to='/roles-list'>Roles</Link>
             </li>}
           {isLoggedIn &&  admin &&
             <li>

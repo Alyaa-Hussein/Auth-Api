@@ -1,9 +1,12 @@
 
 import { Switch, Route } from 'react-router-dom';
+
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage'
 import UsersPage from './pages/UsersPage';
-import RolesListPage from './pages/RoleListPage';
+import RolesListPage from './pages/RolesListPage';
+import AddNewRolePage from './pages/AddNewRolePage';
+import UpdateRolePage from './pages/UpdateRolePage';
 import Layout from './components/Layout/Layout'
 import DevelopementPage from './pages/DevelopmentPage';
 import TestingPage from './pages/Testing';
@@ -33,6 +36,15 @@ function App() {
       </Route>
       <Route path='/testing'>
         <TestingPage/>
+      </Route>
+      <Route path = '/roles-list'>
+        <RolesListPage/>
+      </Route>
+      <Route path = '/add-new-role'>
+        <AddNewRolePage/>
+      </Route>
+       <Route path = '/:id/:name/:description'>
+         <UpdateRolePage/>
       </Route>
     </Switch>
     
