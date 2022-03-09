@@ -1,7 +1,7 @@
 const mongoose= require('mongoose')
 const User = require('../models/user')
 const Role = require('../models/role')
-const { ObjectId } = require('bson')
+
 
 const connectionURL= 'mongodb://127.0.0.1:27017/auth-api'
 
@@ -42,6 +42,6 @@ const addMainRoles = async()=>{
 
 
 }
-addMainRoles()
-addAdmin()
+//addMainRoles()
+//addAdmin()
 

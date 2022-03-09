@@ -1,0 +1,19 @@
+.list {
+  list-style: none;
+  text-align: center;
+}
+.section {
+  margin: 3rem auto;
+  text-align: center;
+  margin-left: 20%;
+}
+
+.button {
+  font: inherit;
+  cursor: pointer;
+  color: #38015c;
+  border: 1px solid #38015c;
+  background-color: transparent;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+}

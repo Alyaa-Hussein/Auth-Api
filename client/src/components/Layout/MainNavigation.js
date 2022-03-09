@@ -11,7 +11,7 @@ const MainNavigation = () => {
   const authCtx = useContext(AuthContext)
   const isLoggedIn = authCtx.isLoggedIn
   const admin = authCtx.admin
-  console.log("kokkokooko",admin)
+ // console.log("kokkokooko",admin)
 
   function logoutHandler(){
     authCtx.logout()
@@ -22,7 +22,8 @@ const MainNavigation = () => {
       method:'POST',
       body:JSON.stringify({token:authCtx.token}),
       headers:{
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Authorization':authCtx.token
       }
     })
     history.replace('/auth')
@@ -44,7 +45,7 @@ const MainNavigation = () => {
             </li>}
           {isLoggedIn && admin &&
             <li>
-              <Link to='/Home'>Roles</Link>
+              <Link to='/roles-list'>Roles</Link>
             </li>}
           {isLoggedIn &&  admin &&
             <li>

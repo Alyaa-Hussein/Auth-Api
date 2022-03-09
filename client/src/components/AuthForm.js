@@ -43,8 +43,8 @@ const AuthForm = () => {
       },
     })
 
-    console.log(data.token)
-    console.log("hello admin",data.user.admin)
+    //console.log(data.token)
+    //console.log("hello admin",data.user.admin)
 
     authCtx.login(data.token,data.user.admin)
     
