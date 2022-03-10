@@ -41,7 +41,8 @@ const UsersPage = () => {
 
   return(
     <div>
-      {!error &&<UserList users={users} roles={roles} />}   
+      {!error &&<UserList users={users} roles={roles} />}
+   
       {error && <h1>You are not authorized to access this page</h1>}
 
     </div>

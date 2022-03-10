@@ -24,7 +24,6 @@ export const AuthContextProvider = (props) =>{
        {
         localStorage.setItem('admin','admin')
         setAdmin('admin')
-
        }
        else{
            setAdmin(null)

@@ -9,10 +9,14 @@ const TestingPage= ()=>{
 
     useEffect(()=>{
         const fetchData = async()=>{
-            const data = await sendRequest({
+           sendRequest({
                 url:'/testplan',   
-            })
-            setData(data.plan)
+            }).then(data  =>{
+                if(data){
+                 setData(data.plan)
+                }
+
+            }).catch(e=>{})
         }
         fetchData()
 

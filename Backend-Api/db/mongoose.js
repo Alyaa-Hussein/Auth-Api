@@ -47,10 +47,14 @@ const addMainRoles = async()=>{
     await role2.save()
     console.log('Developer role Created')
 
-    
 
 
 }
-//addMainRoles()
-//addAdmin()
+
+// comment the following line of codes  after adding for the first time in the data base 
+
+addMainRoles().then(data=>{
+      addAdmin()
+    
+})
 

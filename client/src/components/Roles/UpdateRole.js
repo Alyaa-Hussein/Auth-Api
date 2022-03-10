@@ -66,7 +66,7 @@ const UpdateRole = (props)=>{
         <section>
       
       { isLoggedIn&& admin &&<form onSubmit={submitHandler}  className={classes.role}>
-          { isLoggedIn&& admin &&<h1>Add New Role</h1>}
+          { isLoggedIn&& admin &&<h1>Update Role</h1>}
 
         <div className={classes.control}>
           <label htmlFor='roleName'>New Name</label>

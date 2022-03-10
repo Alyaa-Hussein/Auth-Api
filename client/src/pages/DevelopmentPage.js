@@ -9,12 +9,16 @@ const DevelopmentPage= ()=>{
     const [data, setData] = useState()
     useEffect(()=>{
         const fetchData = async()=>{
-            const data = await sendRequest({
+            await sendRequest({
                 url:'/devplan',
     
+            }).then(data =>{
+                if(data){
+                    setData(data.plan)
+
+                }
             })
             
-            setData(data.plan)
         }
         fetchData()
 
