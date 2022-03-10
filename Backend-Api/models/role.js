@@ -7,7 +7,7 @@ const roleSchema = new mongoose.Schema({
     name:{
         type:String,
         trim:true,
-        default:'No role',
+       // unique:true,
         toLowerCase:true,
         required:true,
         validate(value){
