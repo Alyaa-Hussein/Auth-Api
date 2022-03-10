@@ -1,8 +1,11 @@
 import {useState,useCallback, useContext} from "react"
+import AuthContext from "../store/auth-context";
 
 const useHttp=()=>{
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const authCtx= useContext(AuthContext)
 
   const sendRequest = useCallback( async (requestConfig) => {
     setIsLoading(true);
@@ -10,7 +13,8 @@ const useHttp=()=>{
     try {
       const response = await fetch(requestConfig.url,{
           method:requestConfig.method ? requestConfig.method :'GET',
-          headers:requestConfig.headers ? requestConfig.headers:{},
+          headers:requestConfig.headers ? requestConfig.headers:{'Content-Type':'application/json',
+          'Authorization':authCtx.token},
           body:requestConfig.body ? requestConfig.body:null
       });
 
@@ -26,7 +30,7 @@ const useHttp=()=>{
       setError(err.message || 'Something went wrong!');
     }
     
-  },[]);
+  },[authCtx.token]);
   return {
       isLoading,
       error,

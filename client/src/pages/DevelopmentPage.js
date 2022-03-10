@@ -1,21 +1,17 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useHttp from '../Http-request/use-http'
-import AuthContext from '../store/auth-context'
+//import AuthContext from '../store/auth-context'
 import classes from './Styles.module.css'
 
 const DevelopmentPage= ()=>{
     const {sendRequest, error}= useHttp()
-    const authCtx = useContext(AuthContext)
+   // const authCtx = useContext(AuthContext)
     const [data, setData] = useState()
     useEffect(()=>{
         const fetchData = async()=>{
             const data = await sendRequest({
                 url:'/devplan',
-                method:'GET',
-                headers:{
-                    'Content-Type':'application/json',
-                    'Authorization':authCtx.token
-                }
+    
             })
             
             setData(data.plan)
@@ -23,7 +19,7 @@ const DevelopmentPage= ()=>{
         fetchData()
 
 
-    },[sendRequest, authCtx.token])
+    },[sendRequest])
 
     return(
         <div>

@@ -19,10 +19,7 @@ const MainNavigation = () => {
    const data =  sendRequest({
       url:'/users/logout',
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':authCtx.token
-      }
+     
     })
     history.replace('/auth')
   }

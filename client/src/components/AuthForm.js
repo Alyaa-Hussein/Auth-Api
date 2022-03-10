@@ -4,7 +4,9 @@ import { useHistory } from 'react-router';
 import AuthContext from '../store/auth-context';
 
 import classes from './AuthForm.module.css';
-
+/*   {isError && !isLoading && isLogin && <p>{error}</p>}
+          {isError && !isLoading && !isLogin && <p>Please try another email !!</p>}
+ */
 
 const AuthForm = () => {
 
@@ -18,7 +20,7 @@ const AuthForm = () => {
   const {isLoading,error,sendRequest}= useHttp()
 
   const [isLogin, setIsLogin] = useState(true);
-  const [isError, setisError]= useState(false)
+ // const [isError, setisError]= useState(false)
   
 
   const clearInput = ()=>{
@@ -34,7 +36,7 @@ const AuthForm = () => {
   const switchAuthModeHandler = () => {
 
     clearInput()
-    setisError(false)
+    //setisError(false)
     setIsLogin((prevState) => !prevState);
 
   };
@@ -71,17 +73,14 @@ const AuthForm = () => {
       authCtx.login(data.token,data.user.admin)
     
    
-      history.replace({
-        pathname:'/home',
-        state:{detail:data.info}
-      })
+      history.replace('/home')
       
     }
-    else  {
-      console.log(error)
+  /*  else  {
+     // console.log(error)
       console.log('hello from error ')
       setisError(true)
-    }
+    }*/
 
     } else {
       const enteredName = nameInputRef.current.value
@@ -100,7 +99,7 @@ const AuthForm = () => {
     })
  
     if(error){
-      setisError(true)
+     // setisError(true)
       setIsLogin(false)
     }else{
       clearInput()
@@ -137,9 +136,7 @@ const AuthForm = () => {
           >
             {isLogin ? 'Create new account' : 'Login with existing account'}
           </button>
-          {isError && !isLoading && isLogin && <p>{error}</p>}
-          {isError && !isLoading && !isLogin && <p>Please try another email !!</p>}
-
+        
         </div>
       </form>
     </section>

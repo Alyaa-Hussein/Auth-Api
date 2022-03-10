@@ -26,7 +26,6 @@ router.get('/roles',auth,auth,Authority(1),async(req,res)=>{
 router.post('/roles/add-new-role',auth,Authority(1),async(req,res)=>{
     try{
         const role = new Role(req.body)
-      //  console.log("ID++++??",role._id)
         const result = await Role.isRudundantRole(role.name,role._id)
         if(result === 'unique'){
             await role.save()
@@ -50,7 +49,6 @@ router.post('/roles/add-new-role',auth,Authority(1),async(req,res)=>{
 router.post('/roles/update-role',auth,Authority(1),async(req,res)=>{
     try{
        const redundnt =  await Role.isRudundantRole(req.body.name,req.body.id)
-       //console.log("hellllllllllllll",redundnt)
         let newRole 
         const newName = req.body.name
         const newDescription = req.body.description
@@ -60,7 +58,6 @@ router.post('/roles/update-role',auth,Authority(1),async(req,res)=>{
 
         }
         if(redundnt === 'redundant'){
-           // console.log("erorr keber======>")
             throw  new Error ('already exist')
         }
         
@@ -68,7 +65,7 @@ router.post('/roles/update-role',auth,Authority(1),async(req,res)=>{
 
     }
     catch(e){
-        console.log("error heheh",e)
+      //  console.log("error heheh",e)
         res.status(400).send(e)
 
     }
@@ -79,19 +76,15 @@ router.delete('/delete-role',auth,Authority(1),async(req,res)=>{
     try{
         const users = await User.find({userRole:req.body.id})
         const newRole= await Role.findOne({name:'No Role'})
-       // console.log(users)
-      users.forEach(async(user) => {
+          users.forEach(async(user) => {
         const updateduser= await User.findByIdAndUpdate(user.id,{userRole:newRole._id},{new:true})
       });
 
-    //  console.log('Role updateddddd')
         const role = await Role.deleteOne({_id:req.body.id})
-      //  console.log("DELETED")
         res.status(200).send(role)
 
     }
     catch(e){
-        //console.log("error heheh",e)
         res.status(400).send(e)
 
     }

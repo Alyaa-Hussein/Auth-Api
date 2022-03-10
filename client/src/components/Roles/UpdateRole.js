@@ -1,4 +1,4 @@
-import { useHistory, useParams } from "react-router-dom"
+import { useHistory  } from "react-router-dom"
 import { useContext, useRef } from 'react'
 import useHttp from '../../Http-request/use-http'
 import AuthContext from '../../store/auth-context'
@@ -11,10 +11,10 @@ const UpdateRole = (props)=>{
     //roleNameRef.current.value = props.roleName
     //roleDescRef.current.value =props.roleDesc
     
-    const {isLoading,error,sendRequest} = useHttp()
+    const {sendRequest} = useHttp()
     const history = useHistory()
 
-    const authCtx = useContext(AuthContext)
+   const authCtx = useContext(AuthContext)
     const isLoggedIn = authCtx.isLoggedIn
     const admin = authCtx.admin
     const submitHandler = async(event)=>{
@@ -34,18 +34,9 @@ const UpdateRole = (props)=>{
                 name:enteredName,
                 description:enteredDesc
             }),
-            headers:{
-                'Content-Type':'application/json',
-                'Authorization':authCtx.token
-            }
 
         })
-        if(data){
-          console.log("Our data=>",data)
-        }else{
-          console.log("Our error=>",error)
-
-        }  
+       
         roleNameRef.current.value =""
         roleDescRef.current.value =""
         history.replace('/roles-list')

@@ -1,31 +1,23 @@
 import classes from './Styles.module.css'
-import { useContext, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 import useHttp from '../Http-request/use-http'
-import AuthContext from '../store/auth-context'
 
 const TestingPage= ()=>{
 
     const {sendRequest, error}= useHttp()
-    const authCtx = useContext(AuthContext)
     const [data, setData] = useState()
 
     useEffect(()=>{
         const fetchData = async()=>{
             const data = await sendRequest({
-                url:'/testplan',
-                method:'GET',
-                headers:{
-                    'Content-Type':'application/json',
-                    'Authorization':authCtx.token
-                }
+                url:'/testplan',   
             })
-            
             setData(data.plan)
         }
         fetchData()
 
 
-    },[sendRequest, authCtx.token])
+    },[sendRequest])
     return(
         <div>
             {!error && <div className={classes.item}>

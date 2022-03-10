@@ -20,7 +20,6 @@ export const AuthContextProvider = (props) =>{
     
 
     const loginHandler = (token,admin) =>{
-       // setUserLoggedIn(true)
        if(admin)
        {
         localStorage.setItem('admin','admin')
@@ -30,15 +29,12 @@ export const AuthContextProvider = (props) =>{
        else{
            setAdmin(null)
        }
-      //  console.log('from context',admin)
 
         localStorage.setItem('token',token)
         setToken(token)
-       // setAdmin(admin)
-        //console.log("from Context",admin)
+   
     }
     const logoutHandler = () =>{
-      //  setUserLoggedIn(false)
         localStorage.removeItem('token')
         localStorage.removeItem('admin')
         setAdmin(false)

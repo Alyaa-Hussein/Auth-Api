@@ -1,13 +1,11 @@
 import Home from "../components/Home/Home"
 import useHttp from "../Http-request/use-http"
-import AuthContext from "../store/auth-context"
-import { useContext,useEffect, useState } from "react"
+//import AuthContext from "../store/auth-context"
+import { useEffect, useState } from "react"
 
 const HomePage=()=>{
 
-
-
-    const authCtx = useContext(AuthContext)
+    //const authCtx = useContext(AuthContext)
     const [info,setInfo]=useState()
     const {isLoading,sendRequest} = useHttp()
 
@@ -15,17 +13,12 @@ const HomePage=()=>{
         const getUserInfo= async()=>{
             const data = await sendRequest({
                 url:'/users/me',
-                method:'GET',
-                headers:{
-                    'Content-Type':'application/json',
-                    'Authorization':authCtx.token
-                  }
             })
             setInfo(data)            
 
         }
         getUserInfo()
-    },[sendRequest,authCtx.token])
+    },[sendRequest])
 
  
 return(

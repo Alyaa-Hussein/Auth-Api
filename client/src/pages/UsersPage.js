@@ -1,7 +1,7 @@
 import UserList from "../components/Users/UserList";
 import useHttp from "../Http-request/use-http";
-import AuthContext from "../store/auth-context";
-import { useEffect, useContext, useState } from "react";
+//import AuthContext from "../store/auth-context";
+import { useEffect, useState } from "react";
 
 
 const UsersPage = () => {
@@ -9,18 +9,14 @@ const UsersPage = () => {
   const [roles,setRoles]= useState([])
 
   const { sendRequest,error } = useHttp();
-  const authCtx = useContext(AuthContext);
+//  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
       const getUsers= async()=>{
 
         const data = await sendRequest({
             url: '/users/all',
-            method: 'GET',
-            headers: {
-                'Content-Type':'application/json',
-                'Authorization':authCtx.token
-            },
+           
           });
          const loadedUsers=[]
           for(const key in data.users){
@@ -33,11 +29,6 @@ const UsersPage = () => {
       const getRoles= async()=>{
         const loadedRoles = await sendRequest({
             url:'/roles',
-            method:'GET',
-            headers: {
-                'Content-Type':'application/json',
-                'Authorization':authCtx.token
-            },
         })
       
        // console.log(loadedRoles)
@@ -48,7 +39,7 @@ const UsersPage = () => {
       getUsers()
       getRoles()
     
-  }, [sendRequest, authCtx.token]);
+  }, [sendRequest]);
 
   return(
     <div>
