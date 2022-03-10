@@ -12,26 +12,31 @@ const UsersPage = () => {
   useEffect(() => {
       const getUsers= async()=>{
 
-        const data = await sendRequest({
-            url: '/users/all',
-           
-          });
-         const loadedUsers=[]
+        sendRequest({
+          url: '/users/all',
+         
+        }).then(data =>{
+          if(data){
+            const loadedUsers=[]
           for(const key in data.users){
               loadedUsers.push(data.users[key])
           }
-        //console.log(loadedUsers)
           setUsers(loadedUsers)
+
+          }
+        });
+        
+      
       }
 
       const getRoles= async()=>{
+        
         const loadedRoles = await sendRequest({
             url:'/roles',
         })
       
        // console.log(loadedRoles)
         setRoles(loadedRoles)
-
     }
 
       getUsers()
