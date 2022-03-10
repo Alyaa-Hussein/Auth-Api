@@ -9,10 +9,10 @@ const Authority =(param)=>{
         if (admin && param === 1)
         {
             console.log('admin authorized')
-        }else if (!admin && param === 2 && role === 'Tester'){
+        }else if (!admin && param === 2 && role === 'tester'){
             console.log('Tester Authorized')
         }
-        else if (!admin && param === 3 && role === 'Developer'){
+        else if (!admin && param === 3 && role === 'developer'){
             console.log('Developer Authorized')
         }
 

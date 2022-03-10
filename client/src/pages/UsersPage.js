@@ -1,6 +1,5 @@
 import UserList from "../components/Users/UserList";
 import useHttp from "../Http-request/use-http";
-//import AuthContext from "../store/auth-context";
 import { useEffect, useState } from "react";
 
 
@@ -8,8 +7,7 @@ const UsersPage = () => {
   const [users,setUsers]= useState([])
   const [roles,setRoles]= useState([])
 
-  const { sendRequest,error } = useHttp();
-//  const authCtx = useContext(AuthContext);
+  const { sendRequest,error, isLoading } = useHttp();
 
   useEffect(() => {
       const getUsers= async()=>{
@@ -43,7 +41,7 @@ const UsersPage = () => {
 
   return(
     <div>
-      {!error &&<UserList users={users} roles={roles} />}
+      {!error &&<UserList users={users} roles={roles} />}   
       {error && <h1>You are not authorized to access this page</h1>}
 
     </div>

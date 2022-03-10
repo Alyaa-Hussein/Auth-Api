@@ -1,13 +1,13 @@
 import classes from './RoleListItem.module.css'
-import { useContext, useRef, useState } from 'react'
+//import { useContext, useRef, useState } from 'react'
 import useHttp from '../../Http-request/use-http'
-import AuthContext from '../../store/auth-context'
+//import AuthContext from '../../store/auth-context'
 import Card from '../UI/Card'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const RoleListItem = (props)=>{
-    const authCtx = useContext(AuthContext)
-    const {isLoading,error,sendRequest} = useHttp()
+    //const authCtx = useContext(AuthContext)
+    const {sendRequest} = useHttp()
     const onDeleteHandler = async()=>{
         const data = await sendRequest({
             url:'/delete-role',
@@ -16,13 +16,10 @@ const RoleListItem = (props)=>{
                 id:props.id,
             
             }),
-            headers:{
-                'Content-Type':'application/json',
-                'Authorization':authCtx.token
-            }
+        
 
         })
-        console.log("DLETED",data)
+      //  console.log("DLETED",data)
         props.deleteItem()
     
     }

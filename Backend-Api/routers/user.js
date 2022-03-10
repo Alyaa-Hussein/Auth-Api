@@ -10,14 +10,14 @@ const router=new express.Router()
 // Register a new user
 router.post('/users', async(req,res)=>{
 
-    const defaultRole = await Role.findOne({name:'No Role'})
+    const defaultRole = await Role.findOne({name:'no role'})
     const user = new User({...req.body, userRole:defaultRole._id})
 
     try {
         await user.save()
         res.status(201).send({user})
     }catch(e){
-        res.status(400).send(e)
+        res.status(400).send({e})
     }
 })
 // User Login
@@ -43,7 +43,7 @@ router.post('/users/logout',auth, async (req,res)=>{
         await req.user.save()
         res.send()
     }catch(e){
-        res.status(500).send()
+        res.status(500).send({e})
     }
 })
 

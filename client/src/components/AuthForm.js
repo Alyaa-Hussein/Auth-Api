@@ -4,9 +4,7 @@ import { useHistory } from 'react-router';
 import AuthContext from '../store/auth-context';
 
 import classes from './AuthForm.module.css';
-/*   {isError && !isLoading && isLogin && <p>{error}</p>}
-          {isError && !isLoading && !isLogin && <p>Please try another email !!</p>}
- */
+ 
 
 const AuthForm = () => {
 
@@ -20,10 +18,12 @@ const AuthForm = () => {
   const {isLoading,error,sendRequest}= useHttp()
 
   const [isLogin, setIsLogin] = useState(true);
- // const [isError, setisError]= useState(false)
+ const [isError, setisError]= useState(false)
   
 
   const clearInput = ()=>{
+    console.log('hello')
+    setisError(false)
     if(!isLogin){
       nameInputRef.current.value=''
 
@@ -36,7 +36,6 @@ const AuthForm = () => {
   const switchAuthModeHandler = () => {
 
     clearInput()
-    //setisError(false)
     setIsLogin((prevState) => !prevState);
 
   };
@@ -51,10 +50,8 @@ const AuthForm = () => {
     
     let url
     if (isLogin) {
-     
-      
       url='/users/login'
-      const data =await sendRequest({
+      sendRequest({
         url:url,
          method:'POST',
          body:JSON.stringify( {
@@ -64,28 +61,27 @@ const AuthForm = () => {
           headers:{
         'Content-Type':'application/json'
       },
-    })
-    if(!error && !data){
-      console.log('waiting')
-    }
-    else if(!error && data  ){
-      console.log('hello from the non error')
+    }).then(data =>{
+      if(data){
+
       authCtx.login(data.token,data.user.admin)
-    
-   
       history.replace('/home')
+     // setisError(false)
+      }
+      else{
+
+        setisError(true)
+      }
+    }).catch(e=>{
+
+    })
       
-    }
-  /*  else  {
-     // console.log(error)
-      console.log('hello from error ')
-      setisError(true)
-    }*/
+      
 
     } else {
       const enteredName = nameInputRef.current.value
       url='/users'
-      const data =sendRequest({
+      sendRequest({
         url:url,
          method:'POST',
          body:JSON.stringify( {
@@ -96,15 +92,19 @@ const AuthForm = () => {
           headers:{
         'Content-Type':'application/json'
       },
-    })
- 
-    if(error){
-     // setisError(true)
-      setIsLogin(false)
-    }else{
+    }).then(data => {
+      if (data){
+
       clearInput()
+      alert('Account created')
       setIsLogin(true)
-    }
+    
+      }
+      else{
+        setisError(true)
+      }
+    })
+
     
   }
   }
@@ -136,6 +136,9 @@ const AuthForm = () => {
           >
             {isLogin ? 'Create new account' : 'Login with existing account'}
           </button>
+          {isLogin && isError && !isLoading && <p>Email or Password is in correct !!</p>}
+          {!isLogin && isError && !isLoading && <p>Please try another email !!</p>}
+
         
         </div>
       </form>

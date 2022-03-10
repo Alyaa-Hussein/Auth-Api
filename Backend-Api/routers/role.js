@@ -26,6 +26,7 @@ router.get('/roles',auth,auth,Authority(1),async(req,res)=>{
 router.post('/roles/add-new-role',auth,Authority(1),async(req,res)=>{
     try{
         const role = new Role(req.body)
+        
         const result = await Role.isRudundantRole(role.name,role._id)
         if(result === 'unique'){
             await role.save()
@@ -39,7 +40,7 @@ router.post('/roles/add-new-role',auth,Authority(1),async(req,res)=>{
 
     }
     catch(e){
-        console.log("error heheh",e)
+      //  console.log("error heheh",e)
         res.status(400).send(e)
 
     }
@@ -61,7 +62,7 @@ router.post('/roles/update-role',auth,Authority(1),async(req,res)=>{
             throw  new Error ('already exist')
         }
         
-        res.status(200).send(redundnt)
+        res.status(200).send(newRole)
 
     }
     catch(e){
@@ -75,7 +76,7 @@ router.post('/roles/update-role',auth,Authority(1),async(req,res)=>{
 router.delete('/delete-role',auth,Authority(1),async(req,res)=>{
     try{
         const users = await User.find({userRole:req.body.id})
-        const newRole= await Role.findOne({name:'No Role'})
+        const newRole= await Role.findOne({name:'no role'})
           users.forEach(async(user) => {
         const updateduser= await User.findByIdAndUpdate(user.id,{userRole:newRole._id},{new:true})
       });

@@ -17,8 +17,8 @@ const Home = (props)=>{
        Content = <div >
            <h3>Your Role is: {info.userRole.name} </h3>
            <h4>{info.userRole.description}</h4>
-           {role === 'Developer' && <Link className={classes.style} to='/development'> Development Plan </Link>}
-           {role === 'Tester' && <Link className={classes.style} to='/testing'> Testing Plan </Link> }
+           {role === 'developer' && <Link className={classes.style} to='/development'> Development Plan </Link>}
+           {role === 'tester' && <Link className={classes.style} to='/testing'> Testing Plan </Link> }
        </div>
    }else if (info.admin)
    {

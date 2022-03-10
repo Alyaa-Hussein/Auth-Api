@@ -1,2 +1,19 @@
 q1: whent to use custome hook ?
 q2:use callback revision 
+
+
+      
+   /*   const data =await sendRequest({
+        url:url,
+         method:'POST',
+         body:JSON.stringify( {
+          email: enterdEmail,
+          password: enteredPass,
+        }),
+          headers:{
+        'Content-Type':'application/json'
+      },
+    })
+    
+      authCtx.login(data.token,data.user.admin)
+      history.replace('/home')*/

@@ -19,7 +19,7 @@ const RolesList =(props)=>{
                     key={role._id}
                     id={role._id}
                     name={role.name}
-                    block={role.name === 'Tester' || role.name ==='Developer' || role.name ==='No Role'? true:false}
+                    block={role.name === 'tester' || role.name ==='developer' || role.name ==='no role'? true:false}
                     description={role.description}
                     deleteItem={props.deleteItemHandler}/>
 

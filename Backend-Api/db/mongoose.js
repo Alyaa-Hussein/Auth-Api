@@ -12,7 +12,7 @@ mongoose.connect(connectionURL,{
 
 const addAdmin = async()=>{
 
-    const role = await Role.findOne({name:'No Role'})
+    const role = await Role.findOne({name:'no role'})
 
     console.log(role._id)
     const user = new User({
@@ -27,15 +27,15 @@ const addAdmin = async()=>{
 }
 const addMainRoles = async()=>{
     const defaultRole = new Role ({
-        name:'No Role',
+        name:'no role',
         description:'You have not assigned a role yet'
     })
     const role1=new Role({
-        name:'Tester',
+        name:'tester',
         description:'Tests code modules'
     })
     const role2=new Role({
-        name:'Developer',
+        name:'developer',
         description:'Developes code modules'
     })
     await defaultRole.save()

@@ -20,7 +20,7 @@ const useHttp=()=>{
 
       if (!response.ok) {
         setIsLoading(false)
-       throw new Error('Unable to login');
+       throw new Error()
       }
       setIsLoading(false);
       const data = await response.json()

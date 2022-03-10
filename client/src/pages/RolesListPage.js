@@ -10,7 +10,7 @@ const RolesListPage = () => {
     const admin = authCtx.admin
     const [itemDeleted,setItemDeleted] = useState(false)
     let onDeleteItemHandler = ()=>{
-        setItemDeleted(true)
+        setItemDeleted(!itemDeleted)
         //console.log("itemDeletes",itemDeleted)
             
     }
@@ -21,9 +21,7 @@ const RolesListPage = () => {
                 url:'/roles',
 
             })
-            
             setRoles(data)
-
         }
         getRole()
       

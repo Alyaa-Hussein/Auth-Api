@@ -8,6 +8,7 @@ const roleSchema = new mongoose.Schema({
         type:String,
         trim:true,
         default:'No role',
+        toLowerCase:true,
         required:true,
         validate(value){
             if(value.toLowerCase().includes('admin')){
@@ -27,12 +28,14 @@ roleSchema.statics.isRudundantRole = async(name , currentId)=>{
    // console.log("function=======" ,name , currentId)
     const currentObj = await Role.findById(currentId)
    // console.log(currentObj)
+
+   name = name.toLowerCase()
     const result = await Role.findOne({name})
     if(result && currentObj){
-        if(currentObj.name === result.name){
+        if(currentObj.name === result.name.toLowerCase()){
            return 'same'
         }
-        else{
+        else {
             return 'redundant'
         }
 
